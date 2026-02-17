@@ -1,15 +1,16 @@
 import { ShoppingBag, Heart } from "lucide-react";
 import { motion } from "framer-motion";
 import { navContainer, navItem } from "@/shared/animations/navbarVariants";
-import { Input } from "../ui/input";
 import { useNavigate } from "react-router-dom";
 
-import { TextAlignJustify } from 'lucide-react';
+
+
 import { useState } from "react";
+import useCartStore from "@/features/cart/store/useCartStore";
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const navToggle = useState(false);
+  // const { } = useGet()
 
   return (
     <main

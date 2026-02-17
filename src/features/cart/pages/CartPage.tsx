@@ -1,11 +1,13 @@
 import React from "react";
 import useGetCart from "../hooks/useGetCart";
+
 import useCartStore from "../store/useCartStore";
+
 import CartList from "../components/cart-list/CartList";
 
 const CartPage = () => {
   const { isLoading, cart, isError } = useGetCart(1);
-  console.log(cart);
+  // console.log(cart);
 
   return (
     <main className="h-auto py-5 px-2 w-full flex flex-col gap-5">

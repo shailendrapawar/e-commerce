@@ -6,8 +6,10 @@ import {
   ItemMedia,
   ItemTitle,
 } from "@/components/ui/item";
+// in466638
+import { Plus, Minus } from 'lucide-react';
 
-export default function CartList(products: any) {
+export default function CartList({ products, isLoading }: any) {
   console.log(products);
   if (!products) return;
 
@@ -16,33 +18,40 @@ export default function CartList(products: any) {
       <ItemGroup className="gap-4 flex flex-col items-center">
         {products?.map((data: any) => (
           <Item
-            className="w-full max-w-150"
+            className="w-full h-30 max-w-150"
             key={data?.title}
             variant="outline"
             asChild
             role="listitem"
           >
-            <a href="#">
-              <ItemMedia variant="image">
+            <div className="">
+              <ItemMedia variant="image" className=" size-20">
                 <img
                   src={data?.image}
                   alt={data?.title}
-                  width={32}
-                  height={32}
-                  className="object-cover grayscale"
+                  width={40}
+                  height={40}
+                  className=" size-20 object-cover grayscale"
                 />
               </ItemMedia>
-              <ItemContent>
+              <ItemContent className="h-20 flex justify-between">
                 <ItemTitle className="line-clamp-1">
                   {data?.title} -{" "}
                   <span className="text-muted-foreground">{data?.album}</span>
                 </ItemTitle>
-                <ItemDescription>{data?.artist}</ItemDescription>
+
+                <ItemDescription className="bg-yellow-300" >
+                  <div className="bg-red-400 h-8 w-25 rounded-lg">
+
+                  </div>
+                </ItemDescription>
               </ItemContent>
+
               <ItemContent className="flex-none text-center">
-                <ItemDescription>{data?.duration}</ItemDescription>
+                <ItemDescription>{data?.price}</ItemDescription>
               </ItemContent>
-            </a>
+
+            </div>
           </Item>
         ))}
       </ItemGroup>
