@@ -4,43 +4,50 @@ import type React from "react";
 import useGetAllCategories from "../hooks/useGetAllCategories";
 import { CategorySkeleton } from "./CategorySkeleton";
 
-const fallbackData: [] = {
-  electronics: {
-    name: "Electronics",
-    emoji: "💻",
-    itemCount: 42,
-    bgColor: "bg-blue-50",
-    hoverColor: "hover:bg-blue-100",
+const fallbackData = [
+  {
+    name: "Mobiles & Gadgets",
+    emoji: "📱",
+    itemCount: 521,
+    bgColor: "bg-cyan-50",
+    hoverColor: "hover:bg-cyan-100",
   },
-  clothes: {
-    name: "Clothes",
+  {
+    name: "Clothing",
     emoji: "👕",
-    itemCount: 156,
-    bgColor: "bg-green-50",
-    hoverColor: "hover:bg-green-100",
+    itemCount: 943,
+    bgColor: "bg-indigo-50",
+    hoverColor: "hover:bg-indigo-100",
   },
-  furniture: {
-    name: "furniture",
-    emoji: "🏡",
-    itemCount: 89,
-    bgColor: "bg-amber-50",
-    hoverColor: "hover:bg-amber-100",
+  {
+    name: "Footwear",
+    emoji: "👟",
+    itemCount: 312,
+    bgColor: "bg-orange-50",
+    hoverColor: "hover:bg-orange-100",
   },
-  shoes: {
-    name: "shoes",
-    emoji: "⌚",
-    itemCount: 67,
-    bgColor: "bg-purple-50",
-    hoverColor: "hover:bg-purple-100",
+  {
+    name: "Kitchen & Dining",
+    emoji: "🍽️",
+    itemCount: 267,
+    bgColor: "bg-emerald-50",
+    hoverColor: "hover:bg-emerald-100",
   },
-  miscellaneous: {
-    name: "miscellaneous",
-    emoji: "📚",
-    itemCount: 203,
-    bgColor: "bg-red-50",
-    hoverColor: "hover:bg-red-100",
+  {
+    name: "Jewellery",
+    emoji: "💍",
+    itemCount: 154,
+    bgColor: "bg-rose-50",
+    hoverColor: "hover:bg-rose-100",
   },
-};
+  {
+    name: "Sports & Fitness",
+    emoji: "🏋️",
+    itemCount: 98,
+    bgColor: "bg-lime-50",
+    hoverColor: "hover:bg-lime-100",
+  },
+];
 
 export default function CategoryGrid() {
   const { data, isLoading, isError } = useGetAllCategories();
@@ -60,32 +67,31 @@ export default function CategoryGrid() {
             ? [...Array(6)].map((item, i) => (
                 <CategorySkeleton key={i} index={i} />
               ))
-            : data?.slice(0, 6)?.map((category: any, index: number) => (
+            : fallbackData?.slice(0, 6)?.map((category: any, index: number) => (
                 <motion.a
-                  key={category.name}
+                  key={index}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.08 }}
                   whileHover={{ scale: 1.05, transition: { duration: 0.1 } }}
-                  className=" bg-gray-100 relative flex flex-col gap-3 items-center justify-start py-12 rounded-2xl border border-gray-100 hover:border-gray-200 transition-all duration-300 cursor-pointer"
+                  className={`group relative flex flex-col items-center justify-start gap-3 py-12 px-6  bg-gray-50 rounded-2xl border border-gray-200 hover:border-gray-300 transition-all duration-300 cursor-pointer overflow-hidden `}
                 >
-                  {/* Background circle */}
+                  {/* Colored background circle – changes on hover */}
                   <div
-                    // src={category}
-                    className={`w-10 h-10  rounded-full ${category.bgColor} group-hover:${category.hoverColor} transition-colors duration-300 flex items-center justify-center text-3xl shadow-sm`}
+                    className={` w-14 h-14 rounded-full ${category.bgColor || "bg-gray-100"} group-hover:${category.hoverColor || "bg-gray-200"} transition-colors duration-300 flex items-center justify-center text-3xl shadow-sm`}
                   >
-                    {category?.emoji || fallbackData[category.slug]?.emoji}
+                    {category.emoji}
                   </div>
 
-                  {/* Name */}
-                  <h3 className="text-md font-semibold text-gray-900 text-center group-hover:text-gray-700 transition-colors">
+                  {/* Category name */}
+                  <h3 className=" mt-3 text-lg font-semibold text-gray-900 group-hover:text-gray-800 transition-colors text-center">
                     {category.name}
                   </h3>
 
-                  {/* Item count */}
-                  <p className="mt-2 text-sm text-gray-500 font-medium absolute bottom-4">
-                    {category.itemCount || 10 + index * 5} items
+                  {/* Item count – positioned at bottom */}
+                  <p className="mt-auto pt-4 text-sm text-gray-500 font-medium">
+                    {category.itemCount} items
                   </p>
                 </motion.a>
               ))}

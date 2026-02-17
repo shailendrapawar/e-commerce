@@ -30,9 +30,9 @@ export default function ProdductCard({ data, isFeatured }: any) {
         )}
 
         <motion.img
-          src={data?.images[0]}
+          src={data?.image}
           alt={data?.title}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-contain p-10"
           whileHover={{ scale: 1.08 }}
           transition={{ duration: 0.35, ease: "easeOut" }}
         />
@@ -44,7 +44,9 @@ export default function ProdductCard({ data, isFeatured }: any) {
           <h2 className="font-semibold text-base line-clamp-1">
             {data?.title}
           </h2>
-          <span className="text-sm text-gray-500">⭐{data?.rating || 4.6}</span>
+          <span className="text-sm text-gray-500">
+            ⭐{data?.rating?.rate || 4.6} ({data?.rating?.count || 0})
+          </span>
         </div>
 
         <div className="flex justify-between items-center">

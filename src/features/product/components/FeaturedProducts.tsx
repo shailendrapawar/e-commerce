@@ -6,7 +6,7 @@ import useGetAllProducts from "../hooks/useGetAllProducts";
 import { Key } from "lucide-react";
 
 const FeaturedProducts = () => {
-  const { data, isLoading, isError } = useGetAllProducts();
+  const { data, isLoading, isError } = useGetAllProducts(5);
   //   const data = [
   //     {
   //       id: 10,
@@ -102,7 +102,7 @@ const FeaturedProducts = () => {
   //     },
   //   ];
 
-  console.log(data);
+  // console.log(data);
   return (
     <main className=" min-h-[calc(100vh-100px)] w-full flex flex-col text-center px-2">
       <section className="w-full mt-4 text-left flex justify-between">

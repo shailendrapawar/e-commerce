@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import ProductService from "../product.api";
-
-const useGetAllProducts = () => {
+const { getAllProducts } = ProductService;
+const useGetAllProducts = (limit: number = 0) => {
   const { isLoading, isError, data } = useQuery({
     queryKey: ["all-products"],
-    queryFn: ProductService.getAllProducts,
+    queryFn: () => getAllProducts(limit),
     staleTime: 1000 * 60 * 5,
     gcTime: 1000 * 60 * 10,
   });
