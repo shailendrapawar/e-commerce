@@ -11,10 +11,10 @@ const ProductService = {
     // console.log(result.data);
     return result.data;
   },
-  getSingleProduct: async (id: number) => {
+  getSingleProduct: async (id: string) => {
     const result = await API.get(`/products/${id}`);
     // console.log(result.data);
-    return result.data;
+    return result.data || null;
   },
   getBulkProducts: async (items: []) => {
     let result = [];

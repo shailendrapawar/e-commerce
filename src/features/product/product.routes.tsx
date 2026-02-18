@@ -11,9 +11,11 @@ export const productRoutes = [
   {
     path: "/home/products",
     element: <Products />,
+    children: [],
   },
   {
-    path: "/home/products/:id",
-    elment: <SingleProduct />,
+    path: "/home/products/:productId",
+    element: <SingleProduct />,
+    children: [],
   },
 ];

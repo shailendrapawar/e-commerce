@@ -2,7 +2,9 @@ import React from "react";
 import Footer from "@/components/footer/Footer";
 import Navbar from "@/components/navbar/Navbar";
 import { Outlet } from "react-router-dom";
+import useScrollToTop from "@/shared/hooks/useScrollToTop";
 const CartLayout = () => {
+  useScrollToTop();
   return (
     <div className="min-h-screen w-full   relative  flex flex-col  items-center">
       <Navbar />

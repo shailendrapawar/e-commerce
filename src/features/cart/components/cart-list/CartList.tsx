@@ -6,56 +6,126 @@ import {
   ItemMedia,
   ItemTitle,
 } from "@/components/ui/item";
-// in466638
-import { Plus, Minus } from 'lucide-react';
+import { Plus, Minus } from "lucide-react";
+import { CartListSkeleton } from "./CartListItemSkeleton";
+import { motion } from "framer-motion";
 
-export default function CartList({ products, isLoading }: any) {
-  console.log(products);
-  if (!products) return;
+export default function CartList({
+  products,
+  isLoading,
+}: {
+  products: any[] | null | undefined;
+  isLoading: boolean;
+}) {
+  if (isLoading) {
+    return (
+      <div className="flex w-full flex-col gap-6">
+        <CartListSkeleton />
+        <CartListSkeleton />
+        <CartListSkeleton />
+      </div>
+    );
+  }
+
+  if (!products || products.length === 0) {
+    return (
+      <div className="flex w-full flex-col gap-6 py-12 text-center text-muted-foreground">
+        Your cart is empty
+      </div>
+    );
+  }
 
   return (
-    <div className="flex w-full flex-col gap-6 ">
-      <ItemGroup className="gap-4 flex flex-col items-center">
-        {products?.map((data: any) => (
-          <Item
-            className="w-full h-30 max-w-150"
-            key={data?.title}
-            variant="outline"
-            asChild
-            role="listitem"
+    <div className="flex w-full flex-col gap-6">
+      <ItemGroup className="gap-4 flex flex-col">
+        {products.map((data: any) => (
+          <motion.div
+            key={data?.title || Math.random()} // better to use real id when available
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+            layout // smooth layout shifts when quantity changes
+            className="w-full"
           >
-            <div className="">
-              <ItemMedia variant="image" className=" size-20">
-                <img
-                  src={data?.image}
-                  alt={data?.title}
-                  width={40}
-                  height={40}
-                  className=" size-20 object-cover grayscale"
-                />
-              </ItemMedia>
-              <ItemContent className="h-20 flex justify-between">
-                <ItemTitle className="line-clamp-1">
-                  {data?.title} -{" "}
-                  <span className="text-muted-foreground">{data?.album}</span>
-                </ItemTitle>
+            <Item className="w-full" variant="outline" asChild role="listitem">
+              <div className="">
+                <ItemMedia variant="image" className="size-20">
+                  <motion.img
+                    src={data?.image}
+                    alt={data?.title}
+                    width={80}
+                    height={80}
+                    className="size-20 object-contain grayscale"
+                    initial={{ scale: 0.92, opacity: 0.7 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ duration: 0.5, delay: 0.15 }}
+                  />
+                </ItemMedia>
 
-                <ItemDescription className="bg-yellow-300" >
-                  <div className="bg-red-400 h-8 w-25 rounded-lg">
+                <ItemContent className="h-20 flex justify-between gap-2">
+                  <div className="flex-1 min-w-0">
+                    <ItemTitle className="line-clamp-1">
+                      {data?.title} -{" "}
+                    </ItemTitle>
 
+                    <ItemDescription className="text-xs">
+                      ${data?.price}
+                    </ItemDescription>
                   </div>
-                </ItemDescription>
-              </ItemContent>
 
-              <ItemContent className="flex-none text-center">
-                <ItemDescription>{data?.price}</ItemDescription>
-              </ItemContent>
+                  <section className="h-8 flex items-center cursor-pointer">
+                    <div className="h-full flex rounded-full border gap-1 items-center">
+                      <motion.button
+                        whileTap={{ scale: 0.88 }}
+                        transition={{
+                          type: "spring",
+                          stiffness: 400,
+                          damping: 25,
+                        }}
+                        className="h-full w-8 p-1.5 rounded-full hover:bg-gray-100  cursor-pointer transition-colors flex items-center justify-center"
+                      >
+                        <Minus className="size-4" />
+                      </motion.button>
 
-            </div>
-          </Item>
+                      <motion.div
+                        key={data?.qty} // re-animates when qty changes
+                        initial={{ scale: 0.7 }}
+                        animate={{ scale: 1 }}
+                        transition={{
+                          type: "spring",
+                          stiffness: 500,
+                          damping: 30,
+                        }}
+                        className="h-full w-8 font-bold flex justify-center items-center"
+                      >
+                        {data?.qty}
+                      </motion.div>
+
+                      <motion.button
+                        whileTap={{ scale: 0.88 }}
+                        transition={{
+                          type: "spring",
+                          stiffness: 400,
+                          damping: 25,
+                        }}
+                        className="h-full w-8 p-1.5 rounded-full hover:bg-gray-100  cursor-pointer transition-colors flex items-center justify-center"
+                      >
+                        <Plus className="size-4" />
+                      </motion.button>
+                    </div>
+                  </section>
+                </ItemContent>
+
+                <ItemContent className="flex-none text-center">
+                  <ItemDescription>
+                    ${(data?.qty * data?.price)?.toFixed(2) || "0.00"}
+                  </ItemDescription>
+                </ItemContent>
+              </div>
+            </Item>
+          </motion.div>
         ))}
       </ItemGroup>
     </div>
   );
-  return null;
 }

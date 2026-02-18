@@ -3,10 +3,11 @@ import { ShoppingBag } from "lucide-react";
 import { motion } from "framer-motion";
 import { cardVariants } from "../../utils/animationVariants";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-export default function ProdductCard({ data, isFeatured }: any) {
+export default function ProductCard({ data, isFeatured }: any) {
   const [featured] = useState(isFeatured);
-
+  const navigate = useNavigate();
   return (
     <motion.main
       variants={cardVariants}
@@ -15,12 +16,15 @@ export default function ProdductCard({ data, isFeatured }: any) {
       className="group h-[440px] w-full max-w-[400px] bg-white rounded-2xl overflow-hidden
                  shadow-sm hover:shadow-xl hover:shadow-gray-200
                  transition-all duration-300"
+      onClick={() => {
+        navigate(`/home/products/${data?.id}`);
+      }}
     >
       {/* IMAGE SECTION */}
       <section className="w-full h-[72%] bg-gray-100 relative overflow-hidden">
         {featured == true ? (
           <Badge
-            className="py-1.5 px-4 font-medium absolute right-4 top-4 z-10"
+            className="py-1.5 px-4 font-medium absolute left-4 top-4 z-10"
             variant="destructive"
           >
             Featured
@@ -59,6 +63,9 @@ export default function ProdductCard({ data, isFeatured }: any) {
             className="h-10 w-10 flex items-center justify-center rounded-full
                        bg-gray-100 hover:bg-black hover:text-white
                        transition-colors duration-300"
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
           >
             <ShoppingBag size={18} />
           </motion.button>
