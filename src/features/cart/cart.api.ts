@@ -29,16 +29,17 @@ const CartService = {
   getSingleCart: async (userId: number) => {
     const result = await API.get(`/carts/${userId}`);
     let cart = result.data;
-    // console.log(cart);
 
     //get bulk products from cart
     let bulkResult = await getBulkProducts(result.data.products);
 
     //map products to
     // console.log("all cart items", cart);
+    const products = mapProductsToCart(cart, bulkResult);
     return {
       ...cart,
-      products: mapProductsToCart(cart, bulkResult),
+      count: products.length || 0,
+      products,
     };
   },
 };
