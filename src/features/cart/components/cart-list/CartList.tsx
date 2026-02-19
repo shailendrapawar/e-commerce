@@ -9,6 +9,7 @@ import {
 import { Plus, Minus } from "lucide-react";
 import { CartListSkeleton } from "./CartListItemSkeleton";
 import { motion } from "framer-motion";
+import { Trash2 } from 'lucide-react';
 
 export default function CartList({
   products,
@@ -36,7 +37,7 @@ export default function CartList({
   }
 
   return (
-    <div className="flex w-full flex-col gap-6">
+    <div className="flex cols-span-3 md:col-span-2 w-full flex-col gap-6">
       <ItemGroup className="gap-4 flex flex-col">
         {products.map((data: any) => (
           <motion.div
@@ -73,7 +74,7 @@ export default function CartList({
                     </ItemDescription>
                   </div>
 
-                  <section className="h-8 flex items-center cursor-pointer">
+                  <section className="h-8 flex items-center justify-between cursor-pointer">
                     <div className="h-full flex rounded-full border gap-1 items-center">
                       <motion.button
                         whileTap={{ scale: 0.88 }}
@@ -116,9 +117,14 @@ export default function CartList({
                   </section>
                 </ItemContent>
 
-                <ItemContent className="flex-none text-center">
+                <ItemContent className="flex justify-between items-center text-center h-20">
                   <ItemDescription>
                     ${(data?.qty * data?.price)?.toFixed(2) || "0.00"}
+                  </ItemDescription>
+
+                  <ItemDescription>
+
+                    <Trash2 size={"20"} />
                   </ItemDescription>
                 </ItemContent>
               </div>

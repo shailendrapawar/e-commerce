@@ -42,5 +42,16 @@ const CartService = {
       products,
     };
   },
+
+
+  updateCart: async (cart: any) => {
+    let result = await API.put(`/carts/${cart?.id}`);
+    result = result.data
+  },
+
+  deleteCart: async (cart: any) => {
+    let result = await API.delete(`/carts/${cart?.id}`);
+    result = result.data
+  }
 };
 export default CartService;
