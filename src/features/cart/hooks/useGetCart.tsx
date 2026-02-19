@@ -41,14 +41,21 @@ const useGetCart = (id: number) => {
   const deleteUserCart = useMutation({
     mutationFn: (cart: any) => deleteCart(cart),
 
+    onSuccess: (data) => {
+      console.log("success", data)
+    },
+
+    onError: (error) => {
+      console.error("Error:", error)
+    },
   })
 
   return {
     isLoading,
     cart: data, isError,
-    addToCart,
-    removeFromCart,
-    deleteUserCart
+    addToCart: addToCart.mutate,
+    removeFromCart: removeFromCart.mutate,
+    deleteUserCart: deleteUserCart.mutate
   };
 };
 

@@ -50,8 +50,17 @@ const CartService = {
   },
 
   deleteCart: async (cart: any) => {
-    let result = await API.delete(`/carts/${cart?.id}`);
-    result = result.data
+    try {
+      let result = await API.delete(`/carts/${cart?.id}`);
+      result = result.data
+
+      if (result.data.id) {
+        return true
+      }
+    } catch (error) {
+      return false
+    }
+
   }
 };
 export default CartService;
