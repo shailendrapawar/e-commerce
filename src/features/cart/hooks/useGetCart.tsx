@@ -31,23 +31,33 @@ const useGetCart = (id: number) => {
 
   //remove item from cart
   const removeFromCart = useMutation({
-    mutationFn: (cart: any) => updateCart(cart),
 
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["user-cart"] })
+    mutationFn: (item: any) => {
+      console.log(item)
+      console.log(data)
+      const products = data?.products?.filter((product: any) => product?.id != item.id)
+      console.log(products)
+      return updateCart({ ...data, products })
     },
-  })
 
-  const deleteUserCart = useMutation({
-    mutationFn: (cart: any) => deleteCart(cart),
-
-    onSuccess: (data) => {
+    onSuccess: (data: any) => {
       console.log("success", data)
+      queryClient.setQueryData(["user-cart"], (prev: any) => {
+        return {
+          ...prev,
+          products: prev?.products?.filter((product: any) => product?.id != data?.id)
+        }
+      })
+
     },
 
     onError: (error) => {
       console.error("Error:", error)
     },
+  })
+
+  const deleteUserCart = useMutation({
+    mutationFn: (cart: any) => deleteCart(cart),
   })
 
   return {
