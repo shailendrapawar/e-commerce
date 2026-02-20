@@ -104,6 +104,9 @@ const useGetCart = (id: number) => {
     mutationFn: (cart: any) => deleteCart(cart),
   });
 
+  const cartItemsLength = () => {
+    return data?.products?.length || 0;
+  };
   return {
     isLoading,
     cart: data,
@@ -111,6 +114,7 @@ const useGetCart = (id: number) => {
     addToCart: addToCart.mutate,
     removeFromCart: removeFromCart.mutate,
     deleteUserCart: deleteUserCart.mutate,
+    cartItemsLength,
   };
 };
 

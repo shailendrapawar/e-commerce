@@ -4,8 +4,11 @@ import { navContainer, navItem } from "@/shared/animations/navbarVariants";
 import { useNavigate } from "react-router-dom";
 
 import { useState } from "react";
+import useGetCart from "@/features/cart/hooks/useGetCart";
 const Navbar = () => {
   const navigate = useNavigate();
+
+  const { cartItemsLength } = useGetCart(1);
 
   return (
     <main className="sticky top-0 z-50 w-full h-24 flex justify-center items-center px-2 bg-white/30 backdrop-blur-md shadow-[2px_5px_15px_rgba(255,255,255,0.25)]">
@@ -27,7 +30,7 @@ const Navbar = () => {
         </motion.h3>
 
         {/* ACTION BUTTONS */}
-        <motion.div variants={navItem} className="flex gap-3 items-center">
+        <motion.div variants={navItem} className="flex gap-4 items-center">
           {/* SEARCH PRODUCT  */}
           <motion.button
             whileHover={{ scale: 1.08, y: -1 }}
@@ -59,11 +62,14 @@ const Navbar = () => {
             whileTap={{ scale: 0.9 }}
             transition={{ type: "spring", stiffness: 300, damping: 18 }}
             className="size-7 md:size-8 flex items-center justify-center
-                       rounded-full bg-gray-100 hover:bg-black hover:text-white
+                       rounded-full  bg-black text-white
                        shadow-sm hover:shadow-md transition-all duration-300
-                       mr-3"
+                       mr-3 relative"
             onClick={() => navigate("/cart")}
           >
+            <div className="h-5 w-5 bg-gray-100 text-black  font-medium rounded-full flex justify-center items-center absolute -top-2 -right-2">
+              {cartItemsLength()}
+            </div>
             <ShoppingBag className="size-4 sm:size-5" />
           </motion.button>
 

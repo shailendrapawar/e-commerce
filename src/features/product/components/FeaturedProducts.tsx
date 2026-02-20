@@ -5,9 +5,11 @@ import useGetAllProducts from "../hooks/useGetAllProducts";
 
 import { Key } from "lucide-react";
 import { useWishlistStore } from "@/features/wishlist/store/useWishlistStore";
+import useGetCart from "@/features/cart/hooks/useGetCart";
 
 const FeaturedProducts = () => {
   const { data, isLoading, isError } = useGetAllProducts(5);
+  const { addToCart } = useGetCart(1);
 
   const { isWishlistProduct, toggleWishlistProduct } = useWishlistStore(
     (s) => s,
@@ -38,6 +40,7 @@ const FeaturedProducts = () => {
                   isFeatured={true}
                   toggleWishlistProduct={toggleWishlistProduct}
                   isWishlistProduct={isWishlistProduct(featuredProduct?.id)}
+                  addToCart={addToCart}
                 />
               );
             })}

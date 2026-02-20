@@ -11,9 +11,11 @@ export default function ProductCard({
   isFeatured,
   toggleWishlistProduct,
   isWishlistProduct,
+  addToCart,
 }: any) {
   const [featured] = useState(isFeatured);
   const navigate = useNavigate();
+
   return (
     <motion.main
       variants={cardVariants}
@@ -93,6 +95,7 @@ export default function ProductCard({
                        transition-colors duration-300"
               onClick={(e) => {
                 e.stopPropagation();
+                addToCart(data);
               }}
             >
               <ShoppingBag size={18} />
