@@ -17,10 +17,23 @@ const useGetCart = (id: number) => {
 
   //add item to cart
   const addToCart = useMutation({
-    mutationFn: (cart: any) => updateCart(cart),
+    mutationFn: (product: any) => {
+      console.log("inside");
+      const totalProducts = [...data?.products, product];
+      // console.log(newCart);
+      const newCart = {
+        ...data,
+        products: totalProducts,
+      };
+      //set new data
+      // can do optimistic update but here api will not support updated data retireval
+      updateCart(newCart);
+      return newCart;
+    },
 
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["user-cart"] });
+    onSuccess: (result) => {
+      console.log("scucces", result);
+      queryClient.setQueryData(["user-cart"], result);
     },
   });
 

@@ -4,8 +4,14 @@ import { motion } from "framer-motion";
 import { cardVariants } from "../../utils/animationVariants";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
-export default function ProductCard({ data, isFeatured, addToWishlist }: any) {
+export default function ProductCard({
+  data,
+  isFeatured,
+  toggleWishlistProduct,
+  isWishlistProduct,
+}: any) {
   const [featured] = useState(isFeatured);
   const navigate = useNavigate();
   return (
@@ -61,12 +67,19 @@ export default function ProductCard({ data, isFeatured, addToWishlist }: any) {
             <motion.button
               whileTap={{ scale: 0.9 }}
               whileHover={{ scale: 1.05 }}
-              className="h-10 w-10 flex items-center justify-center rounded-full
-                       bg-gray-100 hover:bg-pink-500 hover:text-white
-                       transition-colors duration-300"
+              className={`h-10 w-10 flex items-center justify-center rounded-full
+                ${isWishlistProduct ? "bg-pink-500 text-white" : "bg-gray-100 "} transition-colors duration-300`}
               onClick={(e) => {
                 e.stopPropagation();
-                addToWishlist(data);
+                toggleWishlistProduct(data);
+
+                const msg = isWishlistProduct
+                  ? "Removed from wishlist"
+                  : "Added to wishlist";
+
+                toast.info(msg, {
+                  position: "bottom-right",
+                });
               }}
             >
               <Heart size={18} />

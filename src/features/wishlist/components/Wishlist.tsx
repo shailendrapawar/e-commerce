@@ -12,9 +12,11 @@ import { ShoppingBag, Heart, Trash2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useWishlistStore } from "../store/useWishlistStore";
 import { useNavigate } from "react-router-dom";
+import useGetCart from "@/features/cart/hooks/useGetCart";
 
 const Wishlist = ({ wishlistproducts }: { wishlistproducts: any[] }) => {
   const { removeFromWishlist } = useWishlistStore();
+  const { addToCart } = useGetCart(1);
   const navigate = useNavigate();
 
   if (!wishlistproducts?.length) {
@@ -119,7 +121,9 @@ const Wishlist = ({ wishlistproducts }: { wishlistproducts: any[] }) => {
                         )}
                         onClick={(e) => {
                           e.stopPropagation();
-                          // Add move-to-cart logic here
+                          //remove from store(for just this scenario cases)
+                          if (item?.id) removeFromWishlist(item.id);
+                          addToCart(item);
                         }}
                       >
                         <ShoppingBag size={14} />

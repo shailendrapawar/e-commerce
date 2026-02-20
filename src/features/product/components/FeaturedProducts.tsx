@@ -9,7 +9,9 @@ import { useWishlistStore } from "@/features/wishlist/store/useWishlistStore";
 const FeaturedProducts = () => {
   const { data, isLoading, isError } = useGetAllProducts(5);
 
-  const { addToWishlist } = useWishlistStore((s) => s);
+  const { isWishlistProduct, toggleWishlistProduct } = useWishlistStore(
+    (s) => s,
+  );
 
   return (
     <main className=" min-h-[calc(100vh-100px)] w-full flex flex-col text-center px-2">
@@ -28,13 +30,14 @@ const FeaturedProducts = () => {
           ? [...Array(4)]?.map((item, i) => {
               return <ProductCardSkeleton key={i} index={i} />;
             })
-          : data?.slice(0, 4)?.map((featuredProduct: object, i: number) => {
+          : data?.slice(0, 4)?.map((featuredProduct: any, i: number) => {
               return (
                 <ProductCard
                   key={i}
                   data={featuredProduct}
                   isFeatured={true}
-                  addToWishlist={addToWishlist}
+                  toggleWishlistProduct={toggleWishlistProduct}
+                  isWishlistProduct={isWishlistProduct(featuredProduct?.id)}
                 />
               );
             })}
