@@ -29,12 +29,11 @@ const CartService = {
   getSingleCart: async (userId: number) => {
     const result = await API.get(`/carts/${userId}`);
     let cart = result.data;
-
+    // console.log(cart);
     //get bulk products from cart
     let bulkResult = await getBulkProducts(result.data.products);
 
     //map products to
-    // console.log("all cart items", cart);
     const products = mapProductsToCart(cart, bulkResult);
     return {
       ...cart,
@@ -43,30 +42,25 @@ const CartService = {
     };
   },
 
-
   updateCart: async (cart: any) => {
-    let result = await API.put(`/carts/${cart?.id}`);
-    result = result.data
-    console.log("updated cart", result)
-    if (result?.id) {
-      return result
-    }
+    let result: any = await API.put(`/carts/${cart?.id}`);
+    result = result.data;
+    console.log("updated cart", result);
 
-    return null
+    return result;
   },
 
   deleteCart: async (cart: any) => {
     try {
       let result = await API.delete(`/carts/${cart?.id}`);
-      result = result.data
+      result = result.data;
 
       if (result.data.id) {
-        return true
+        return true;
       }
     } catch (error) {
-      return false
+      return false;
     }
-
-  }
+  },
 };
 export default CartService;

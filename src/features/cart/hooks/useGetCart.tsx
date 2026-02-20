@@ -3,12 +3,9 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import CartService from "../cart.api.ts";
 
-
 const { getSingleCart, updateCart, deleteCart } = CartService;
 
 const useGetCart = (id: number) => {
-
-
   const queryClient = useQueryClient();
   //get user cart
   const { isLoading, data, isError } = useQuery({
@@ -18,54 +15,77 @@ const useGetCart = (id: number) => {
     gcTime: 1000 * 60 * 10,
   });
 
-
-
   //add item to cart
   const addToCart = useMutation({
     mutationFn: (cart: any) => updateCart(cart),
 
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["user-cart"] })
+      queryClient.invalidateQueries({ queryKey: ["user-cart"] });
     },
-  })
+  });
 
   //remove item from cart
   const removeFromCart = useMutation({
+    mutationFn: (productId: any) => {
+      //filter products.....
+      const products = data?.products?.filter(
+        (product: any) => product?.id != productId,
+      );
 
-    mutationFn: (item: any) => {
-      console.log(item)
-      console.log(data)
-      const products = data?.products?.filter((product: any) => product?.id != item.id)
-      console.log(products)
-      return updateCart({ ...data, products })
+      const cart = {
+        ...data,
+        count: data?.count - 1,
+        products,
+      };
+
+      console.log("cart", cart);
+      updateCart({ ...cart });
+      console.log("returnign p id", productId);
+      return productId;
     },
 
-    onSuccess: (data: any) => {
-      console.log("success", data)
-      queryClient.setQueryData(["user-cart"], (prev: any) => {
-        return {
-          ...prev,
-          products: prev?.products?.filter((product: any) => product?.id != data?.id)
-        }
-      })
+    onSuccess: (productId: any) => {
+      // get previous cart data
+      queryClient.setQueryData(["user-cart"], (prevCart: any) => {
+        //extract and filter the products
+        const oldProducts = prevCart?.products;
+        const filteredProducts = oldProducts?.filter(
+          (item: any) => item.id != productId,
+        );
 
+        //return updated cart
+        return {
+          ...prevCart,
+          products: filteredProducts,
+        };
+      });
     },
 
     onError: (error) => {
-      console.error("Error:", error)
+      queryClient.setQueryData(["user-cart"], (prevCart: any) => {
+        //extract and filter the products
+        const oldProducts = prevCart?.products;
+        console.log("old products", oldProducts);
+        //return updated cart
+        return {
+          ...prevCart,
+          products: oldProducts,
+        };
+      });
     },
-  })
+  });
 
   const deleteUserCart = useMutation({
     mutationFn: (cart: any) => deleteCart(cart),
-  })
+  });
 
   return {
     isLoading,
-    cart: data, isError,
+    cart: data,
+    isError,
     addToCart: addToCart.mutate,
     removeFromCart: removeFromCart.mutate,
-    deleteUserCart: deleteUserCart.mutate
+    deleteUserCart: deleteUserCart.mutate,
   };
 };
 

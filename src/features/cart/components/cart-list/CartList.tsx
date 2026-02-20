@@ -9,7 +9,7 @@ import {
 import { Plus, Minus } from "lucide-react";
 import { CartListSkeleton } from "./CartListItemSkeleton";
 import { motion } from "framer-motion";
-import { Trash2 } from 'lucide-react';
+import { Trash2 } from "lucide-react";
 import useGetCart from "../../hooks/useGetCart";
 
 export default function CartList({
@@ -19,12 +19,11 @@ export default function CartList({
   products: any[] | null | undefined;
   isLoading: boolean;
 }) {
-
-  const { deleteUserCart, removeFromCart } = useGetCart(1)
+  const { deleteUserCart, removeFromCart } = useGetCart(1);
 
   if (isLoading) {
     return (
-      <div className="flex w-full flex-col gap-6">
+      <div className="flex col-span-3 w-full flex-col gap-6">
         <CartListSkeleton />
         <CartListSkeleton />
         <CartListSkeleton />
@@ -122,16 +121,18 @@ export default function CartList({
                 </ItemContent>
 
                 <ItemContent className="flex justify-between items-center text-center h-20">
-
                   <ItemDescription>
                     ${(data?.qty * data?.price)?.toFixed(2) || "0.00"}
                   </ItemDescription>
 
                   <ItemDescription>
-                    <Trash2 className="active:scale-95 transition-all" size={"20"} onClick={() => removeFromCart(data)} />
+                    <Trash2
+                      className="active:scale-95 transition-all"
+                      size={"20"}
+                      onClick={() => removeFromCart(data?.id)}
+                    />
                   </ItemDescription>
                 </ItemContent>
-
               </div>
             </Item>
           </motion.div>
