@@ -5,6 +5,19 @@ import CartService from "../cart.api.ts";
 
 const { getSingleCart, updateCart, deleteCart } = CartService;
 
+const handleUniqueUpdate = (oldState: [], newItem: any) => {
+  //find index
+  const index = oldState?.findIndex((item: any) => item?.id == newItem?.id);
+  if (index >= 0) {
+    //update thta index
+    const item: any = oldState[index];
+    const updatedItem: any = { ...item, qty: (item?.qty || 0) + 1 };
+    oldState.splice(index, 1, updatedItem);
+    return [...oldState];
+  } else {
+    return [...oldState, newItem];
+  }
+};
 const useGetCart = (id: number) => {
   const queryClient = useQueryClient();
   //get user cart
@@ -18,9 +31,7 @@ const useGetCart = (id: number) => {
   //add item to cart
   const addToCart = useMutation({
     mutationFn: (product: any) => {
-      console.log("inside");
-      const totalProducts = [...data?.products, product];
-      // console.log(newCart);
+      const totalProducts = handleUniqueUpdate(data?.products, product);
       const newCart = {
         ...data,
         products: totalProducts,

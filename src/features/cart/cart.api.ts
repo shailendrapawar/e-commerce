@@ -1,7 +1,6 @@
 import axios from "axios";
 import API from "@/shared/api/axios";
 import ProductService from "../product/product.api";
-import useCartStore from "./store/useCartStore";
 
 // const data = useCartStore((s: any) => s);
 
@@ -45,8 +44,7 @@ const CartService = {
   updateCart: async (cart: any) => {
     let result: any = await API.put(`/carts/${cart?.id}`);
     result = result.data;
-    console.log("updated cart", result);
-
+    // console.log("updated cart", result);
     return result;
   },
 

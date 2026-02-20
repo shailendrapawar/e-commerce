@@ -1,7 +1,7 @@
 import Home from "./pages/Home";
 import Products from "./pages/Products";
 import SingleProduct from "./pages/SingleProduct";
-
+import SearchPage from "./pages/SearchPage";
 export const productRoutes = [
   {
     path: "/home/",
@@ -16,6 +16,11 @@ export const productRoutes = [
   {
     path: "/home/products/:productId",
     element: <SingleProduct />,
+    children: [],
+  },
+  {
+    path: "/home/search",
+    element: <SearchPage />,
     children: [],
   },
 ];
