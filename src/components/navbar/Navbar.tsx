@@ -2,9 +2,10 @@ import { ShoppingBag, Heart, Search } from "lucide-react";
 import { motion } from "framer-motion";
 import { navContainer, navItem } from "@/shared/animations/navbarVariants";
 import { useNavigate } from "react-router-dom";
-
-import { useState } from "react";
 import useGetCart from "@/features/cart/hooks/useGetCart";
+
+import profileImg from "@/assets/react.svg";
+
 const Navbar = () => {
   const navigate = useNavigate();
 
@@ -81,8 +82,10 @@ const Navbar = () => {
             className="size-9 sm:h-10 sm:w-10 flex items-center justify-center
                        rounded-full bg-gray-300 hover:bg-gray-200 hover:text-white
                        shadow-sm hover:shadow-md transition-all duration-300"
-            onClick={() => navigate("/cart")}
-          ></motion.button>
+            // onClick={() => navigate("/cart")}
+          >
+            <img className="p-1" src={profileImg}></img>
+          </motion.button>
         </motion.div>
       </motion.section>
     </main>
