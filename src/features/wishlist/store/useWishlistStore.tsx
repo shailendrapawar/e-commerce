@@ -52,23 +52,51 @@ export const useWishlistStore = create<any>((set, get) => ({
       console.log("already exists");
       return;
     }
-
     set({
       wishlistProducts: [...exisitingProducts, product],
     });
   },
 
   removeFromWishlist: (productId: any) => {
-    // console.log("callexd");
     const { wishlistProducts } = get();
-    // console.log("got items", wishlistProducts);
     const filteredItems = wishlistProducts?.filter(
       (item: any) => item?.id != productId,
     );
-    // console.log("got items", filteredItems);
-
     set({
       wishlistProducts: filteredItems,
+    });
+  },
+
+  isWishlistProduct: (productId: any) => {
+    const { wishlistProducts } = get();
+    const index = wishlistProducts?.findIndex(
+      (item: any) => item?.id == productId,
+    );
+    if (index < 0) {
+      return false;
+    }
+    return true;
+  },
+
+  toggleWishlistProduct: (product: any) => {
+    const exisitingProducts = get().wishlistProducts;
+    const index = exisitingProducts.findIndex(
+      (v: any, i: number) => v?.id == product?.id,
+    );
+    if (index >= 0) {
+      //it exists , remove from it
+      const filteredItems = exisitingProducts?.filter(
+        (item: any) => item?.id != product?.id,
+      );
+      set({
+        wishlistProducts: filteredItems,
+      });
+      console.log("new product to wishlist added");
+      return;
+    }
+    //add into it"
+    set({
+      wishlistProducts: [...exisitingProducts, product],
     });
   },
 

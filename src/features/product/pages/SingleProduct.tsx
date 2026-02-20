@@ -3,11 +3,13 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Badge } from "@/components/ui/badge";
 import { ShoppingCart, Heart, Minus, Plus, Star } from "lucide-react";
 import useGetSingleProduct from "../hooks/useGetSingleProduct";
 import { useParams } from "react-router-dom";
 import useScrollToTop from "@/shared/hooks/useScrollToTop";
+import { useWishlistStore } from "@/features/wishlist/store/useWishlistStore";
+import { toast } from "sonner";
+import { Item } from "@/components/ui/item";
 
 function SingleProduct() {
   useScrollToTop();
@@ -15,8 +17,9 @@ function SingleProduct() {
   const { productId }: string | any = useParams();
 
   const { data, isLoading, isError }: any = useGetSingleProduct(productId);
-
-  console.log(data);
+  const { isWishlistProduct, toggleWishlistProduct } = useWishlistStore(
+    (s) => s,
+  );
 
   const increaseQuantity = () => setQuantity((prev) => prev + 1);
   const decreaseQuantity = () =>
@@ -139,13 +142,21 @@ function SingleProduct() {
                 Add to Cart
               </Button>
 
-              <Button
+              <button
                 variant="outline"
                 size="icon"
-                className="h-11 w-11 hover:bg-pink-500 hover:text-white active:scale-95 hover:rounded-full transition-all ease-in-out"
+                className={` rounded-md flex justify-center items-center h-11 w-11 ${isWishlistProduct(data?.id) ? "bg-pink-500 text-white" : "border-2 border-pink-500 text-pink-500 "}  active:scale-95  transition-all ease-in-out`}
+                onClick={() => {
+                  toggleWishlistProduct(data);
+                }}
+                title={
+                  isWishlistProduct(data?.id) == true
+                    ? `Already in wishlist`
+                    : "Add to wishlist"
+                }
               >
-                <Heart className="h-4 w-4" />
-              </Button>
+                <Heart className="h-6 w-6" />
+              </button>
             </div>
           </div>
 
