@@ -1,8 +1,8 @@
 import React from "react";
-import useGetCart from "../hooks/useGetCart";
+import useGetCart from "@/features/cart/hooks/useGetCart";
 
-import CartList from "../components/cart-list/CartList";
-import OrderSummary from "../components/orderSummary/OrderSummary";
+import CartList from "@/features/cart/components/cart-list/CartList";
+import OrderSummary from "@/features/cart/components/orderSummary/OrderSummary";
 
 const CartPage = () => {
   const { isLoading, cart, isError } = useGetCart(1);

@@ -38,9 +38,10 @@ const useGetCart = (id: number) => {
         products,
       };
 
-      console.log("cart", cart);
+      //call update cart Api
       updateCart({ ...cart });
-      console.log("returnign p id", productId);
+
+      //return product id for mutation
       return productId;
     },
 

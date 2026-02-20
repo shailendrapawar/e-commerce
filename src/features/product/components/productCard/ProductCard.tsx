@@ -1,11 +1,11 @@
 import { Badge } from "@/components/ui/badge";
-import { ShoppingBag } from "lucide-react";
+import { Heart, ShoppingBag } from "lucide-react";
 import { motion } from "framer-motion";
 import { cardVariants } from "../../utils/animationVariants";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function ProductCard({ data, isFeatured }: any) {
+export default function ProductCard({ data, isFeatured, addToWishlist }: any) {
   const [featured] = useState(isFeatured);
   const navigate = useNavigate();
   return (
@@ -56,19 +56,35 @@ export default function ProductCard({ data, isFeatured }: any) {
         <div className="flex justify-between items-center">
           <span className="font-semibold text-lg">${data?.price}</span>
 
-          {/* ADD TO CART BUTTON */}
-          <motion.button
-            whileTap={{ scale: 0.9 }}
-            whileHover={{ scale: 1.05 }}
-            className="h-10 w-10 flex items-center justify-center rounded-full
+          <section className="flex gap-5">
+            {/* ADD TO WISHLIST  */}
+            <motion.button
+              whileTap={{ scale: 0.9 }}
+              whileHover={{ scale: 1.05 }}
+              className="h-10 w-10 flex items-center justify-center rounded-full
+                       bg-gray-100 hover:bg-pink-500 hover:text-white
+                       transition-colors duration-300"
+              onClick={(e) => {
+                e.stopPropagation();
+                addToWishlist(data);
+              }}
+            >
+              <Heart size={18} />
+            </motion.button>
+            {/* ADD TO CART BUTTON */}
+            <motion.button
+              whileTap={{ scale: 0.9 }}
+              whileHover={{ scale: 1.05 }}
+              className="h-10 w-10 flex items-center justify-center rounded-full
                        bg-gray-100 hover:bg-black hover:text-white
                        transition-colors duration-300"
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-          >
-            <ShoppingBag size={18} />
-          </motion.button>
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+            >
+              <ShoppingBag size={18} />
+            </motion.button>
+          </section>
         </div>
       </section>
     </motion.main>

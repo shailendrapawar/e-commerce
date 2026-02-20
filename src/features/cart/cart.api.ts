@@ -45,7 +45,7 @@ const CartService = {
   updateCart: async (cart: any) => {
     let result: any = await API.put(`/carts/${cart?.id}`);
     result = result.data;
-    console.log("updated cart", result);
+    // console.log("updated cart", result);
 
     return result;
   },
