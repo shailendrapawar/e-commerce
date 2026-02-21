@@ -102,7 +102,7 @@ export default function LandingPage() {
               size="lg"
               className="h-16 px-16 text-xl font-semibold bg-white text-black hover:bg-zinc-200 transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105 active:scale-100"
             >
-              Begin Your Journey
+              Choose your style
             </Button>
           </div>
         </motion.div>
