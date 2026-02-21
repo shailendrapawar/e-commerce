@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import useGetCart from "@/features/cart/hooks/useGetCart";
 
 import profileImg from "@/assets/react.svg";
-
+import { Diamond } from "lucide-react";
 const Navbar = () => {
   const navigate = useNavigate();
 
@@ -18,16 +18,18 @@ const Navbar = () => {
         initial="hidden"
         animate="show"
         className="h-[70%] w-full max-w-[1000px] bg-white rounded-full
-                   flex items-center justify-between px-5 sm:px-10 md:px-14
+                   flex items-center justify-between px-4 sm:px-10 md:px-14
                    shadow-sm relative"
       >
         {/* LOGO */}
         <motion.h3
           variants={navItem}
-          className="text-xl sm:text-2xl font-semibold tracking-wide"
+          className=" flex items-center gap-2 text-xl sm:text-2xl font-semibold tracking-wide"
           onClick={() => navigate("/home")}
         >
-          SHOP
+          {" "}
+          <Diamond className="size-5" />
+          <p className="text-md">LUNA</p>
         </motion.h3>
 
         {/* ACTION BUTTONS */}
@@ -65,7 +67,7 @@ const Navbar = () => {
             className="size-7 md:size-8 flex items-center justify-center
                        rounded-full  bg-black text-white
                        shadow-sm hover:shadow-md transition-all duration-300
-                       mr-3 relative"
+                        relative"
             onClick={() => navigate("/cart")}
           >
             <div className="h-5 w-5 bg-gray-100 text-black  font-medium rounded-full flex justify-center items-center absolute -top-2 -right-2">
