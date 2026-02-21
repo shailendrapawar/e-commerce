@@ -8,7 +8,7 @@ import useScrollToTop from "@/shared/hooks/useScrollToTop";
 
 const SearchPage = () => {
   useScrollToTop();
-  const { data, isLoading, isError } = useGetAllProducts();
+  const { data } = useGetAllProducts();
   const [keyword, setKeyword] = useState("");
   const [searchResult, setSearchResult] = useState(data || []);
 
