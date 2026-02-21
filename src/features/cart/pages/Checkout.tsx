@@ -17,8 +17,10 @@ import {
 import { cn } from "@/lib/utils";
 import { useNavigate } from "react-router-dom";
 import useGetCart from "../hooks/useGetCart";
+import useScrollToTop from "@/shared/hooks/useScrollToTop";
 
 const CheckoutPage = () => {
+  useScrollToTop();
   const navigate = useNavigate();
 
   const { cart } = useGetCart(1);
