@@ -18,8 +18,10 @@ const SearchPage = () => {
   const searchProduct = (keyword: string) => {
     // console.log("searched....", data);
 
-    const filteredItems = data?.filter((item: any) =>
-      item?.title?.toLowerCase()?.includes(keyword?.toLowerCase()),
+    const filteredItems = data?.filter(
+      (item: any) =>
+        item?.title?.toLowerCase()?.includes(keyword?.toLowerCase()) ||
+        item?.category?.toLowerCase()?.includes(keyword?.toLowerCase()),
     );
     // console.log(filteredItems);
     setSearchResult(filteredItems);

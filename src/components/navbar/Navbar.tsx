@@ -24,7 +24,7 @@ const Navbar = () => {
         {/* LOGO */}
         <motion.h3
           variants={navItem}
-          className=" flex items-center gap-2 text-xl sm:text-2xl font-semibold tracking-wide"
+          className=" cursor-pointer flex items-center gap-2 text-xl sm:text-2xl font-semibold tracking-wide"
           onClick={() => navigate("/home")}
         >
           {" "}
