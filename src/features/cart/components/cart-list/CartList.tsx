@@ -11,6 +11,7 @@ import { CartListSkeleton } from "./CartListItemSkeleton";
 import { motion } from "framer-motion";
 import { Trash2 } from "lucide-react";
 import useGetCart from "../../hooks/useGetCart";
+import { useNavigate } from "react-router-dom";
 
 export default function CartList({
   products,
@@ -20,6 +21,7 @@ export default function CartList({
   isLoading: boolean;
 }) {
   const { deleteUserCart, removeFromCart } = useGetCart(1);
+  const navigate = useNavigate();
 
   if (isLoading) {
     return (
@@ -50,6 +52,10 @@ export default function CartList({
             transition={{ duration: 0.4, ease: "easeOut" }}
             layout // smooth layout shifts when quantity changes
             className="w-full"
+            onClick={(e) => {
+              e.stopPropagation();
+              navigate(`/home/products/${data?.id}`);
+            }}
           >
             <Item className="w-full" variant="outline" asChild role="listitem">
               <div className="">
