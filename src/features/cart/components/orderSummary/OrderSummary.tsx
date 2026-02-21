@@ -1,7 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function OrderSummary({ cart }: { cart: any }) {
+  const navigate = useNavigate();
   const summary = useMemo(() => {
     const cartAmount =
       cart?.products?.reduce((acc: number, item: any) => {
@@ -56,11 +58,17 @@ export default function OrderSummary({ cart }: { cart: any }) {
       </div>
 
       <div className="px-5 pb-6 space-y-3">
-        <Button className="w-full h-12 text-base font-medium bg-black hover:bg-gray-900 text-white rounded-lg">
+        <Button
+          className="w-full h-12 text-base font-medium bg-black hover:bg-gray-900 text-white rounded-lg"
+          onClick={() => navigate("/cart/checkout")}
+        >
           Checkout
         </Button>
 
-        <button className="w-full h-12 text-base font-medium text-gray-700 hover:text-gray-900 border border-gray-300 hover:border-gray-400 rounded-lg transition-colors">
+        <button
+          className="w-full h-12 text-base font-medium text-gray-700 hover:text-gray-900 border border-gray-300 hover:border-gray-400 rounded-lg transition-colors"
+          onClick={() => navigate("/home/")}
+        >
           Continue Shopping
         </button>
       </div>
