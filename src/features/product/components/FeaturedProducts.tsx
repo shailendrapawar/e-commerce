@@ -3,12 +3,11 @@ import ProductCard from "./productCard/ProductCard";
 import ProductCardSkeleton from "./productCard/ProductCardSkeleton";
 import useGetAllProducts from "../hooks/useGetAllProducts";
 
-import { Key } from "lucide-react";
 import { useWishlistStore } from "@/features/wishlist/store/useWishlistStore";
 import useGetCart from "@/features/cart/hooks/useGetCart";
 
 const FeaturedProducts = () => {
-  const { data, isLoading, isError } = useGetAllProducts(5);
+  const { data, isLoading } = useGetAllProducts(5);
   const { addToCart } = useGetCart(1);
 
   const { isWishlistProduct, toggleWishlistProduct } = useWishlistStore(
@@ -29,7 +28,7 @@ const FeaturedProducts = () => {
       {/* //data */}
       <section className="mt-5 w-full gap-5 h-auto grid grid-cols-1 lg:grid-cols-2 place-items-center">
         {isLoading
-          ? [...Array(4)]?.map((item, i) => {
+          ? [...Array(4)]?.map((_, i) => {
               return <ProductCardSkeleton key={i} index={i} />;
             })
           : data?.slice(0, 4)?.map((featuredProduct: any, i: number) => {

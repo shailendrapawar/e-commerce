@@ -7,7 +7,7 @@ export const cardVariants = {
     scale: 1,
     transition: {
       duration: 0.45,
-      ease: [0.25, 0.8, 0.25, 1], // smoother than easeOut
+      // ease: [0.25, 0.8, 0.25, 1], // smoother than easeOut
     },
   },
 };

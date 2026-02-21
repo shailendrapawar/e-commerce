@@ -1,6 +1,4 @@
-// pages/Checkout.tsx   or   components/CheckoutPage.tsx
-
-import React, { useState } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -15,7 +13,6 @@ import {
   Truck,
   ChevronRight,
   ArrowLeft,
-  CheckCircle2,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useNavigate } from "react-router-dom";
@@ -24,7 +21,7 @@ import useGetCart from "../hooks/useGetCart";
 const CheckoutPage = () => {
   const navigate = useNavigate();
 
-  const { cart, isLoading } = useGetCart(1);
+  const { cart } = useGetCart(1);
   //   console.log(cart);
   const [step, setStep] = useState<"address" | "payment" | "confirm">(
     "address",

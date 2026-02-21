@@ -2,7 +2,7 @@ import { Badge } from "@/components/ui/badge";
 import { Heart, ShoppingBag } from "lucide-react";
 import { motion } from "framer-motion";
 import { cardVariants } from "../../utils/animationVariants";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 

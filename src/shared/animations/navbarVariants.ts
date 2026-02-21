@@ -6,7 +6,7 @@ export const navContainer = {
     opacity: 1,
     transition: {
       duration: 0.5,
-      ease: [0.25, 0.8, 0.25, 1],
+      // ease: [0.25, 0.8, 0.25, 1],
       staggerChildren: 0.12,
     },
   },

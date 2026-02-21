@@ -8,8 +8,6 @@ import useGetSingleProduct from "../hooks/useGetSingleProduct";
 import { useParams } from "react-router-dom";
 import useScrollToTop from "@/shared/hooks/useScrollToTop";
 import { useWishlistStore } from "@/features/wishlist/store/useWishlistStore";
-import { toast } from "sonner";
-import { Item } from "@/components/ui/item";
 
 function SingleProduct() {
   useScrollToTop();
@@ -143,8 +141,6 @@ function SingleProduct() {
               </Button>
 
               <button
-                variant="outline"
-                size="icon"
                 className={` rounded-md flex justify-center items-center h-11 w-11 ${isWishlistProduct(data?.id) ? "bg-pink-500 text-white" : "border-2 border-pink-500 text-pink-500 "}  active:scale-95  transition-all ease-in-out`}
                 onClick={() => {
                   toggleWishlistProduct(data);

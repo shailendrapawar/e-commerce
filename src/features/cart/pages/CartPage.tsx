@@ -1,11 +1,9 @@
-import React from "react";
 import useGetCart from "../hooks/useGetCart";
-
 import CartList from "../components/cart-list/CartList";
 import OrderSummary from "../components/orderSummary/OrderSummary";
 
 const CartPage = () => {
-  const { isLoading, cart, isError } = useGetCart(1);
+  const { isLoading, cart } = useGetCart(1);
 
   return (
     <main className="h-auto py-5 px-2  w-full flex flex-col gap-5">

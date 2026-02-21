@@ -1,4 +1,3 @@
-import { Suspense } from "react";
 import CategoryGrid from "../components/CategoryGrid";
 import Hero from "../components/Hero";
 import FeaturedProducts from "../components/FeaturedProducts";

@@ -1,11 +1,10 @@
-import React, { useEffect } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import CartService from "../cart.api.ts";
 
 const { getSingleCart, updateCart, deleteCart } = CartService;
 
-const handleUniqueUpdate = (oldState: [], newItem: any) => {
+const handleUniqueUpdate = (oldState: any[] = [], newItem: any) => {
   //find index
   const index = oldState?.findIndex((item: any) => item?.id == newItem?.id);
   if (index >= 0) {
@@ -86,7 +85,7 @@ const useGetCart = (id: number) => {
       });
     },
 
-    onError: (error) => {
+    onError: () => {
       queryClient.setQueryData(["user-cart"], (prevCart: any) => {
         //extract and filter the products
         const oldProducts = prevCart?.products;

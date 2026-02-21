@@ -1,9 +1,8 @@
-import { useEffect } from "react";
 import Wishlist from "../components/Wishlist";
 import { useWishlistStore } from "../store/useWishlistStore";
 
 const WishlistPage = () => {
-  const { wishlistProducts, setWishlist } = useWishlistStore((s) => s);
+  const { wishlistProducts } = useWishlistStore((s) => s);
 
   // console.log(wishlistProducts);
   return (

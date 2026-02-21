@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 
-export function CategorySkeleton({ index }: { index: number }) {
+export function CategorySkeleton() {
   return (
     <Skeleton className="">
       <Card className="w-full max-w-xs border-none bg-gray-200">

@@ -1,6 +1,4 @@
-import React from "react";
 import { create } from "zustand";
-
 export const useWishlistStore = create<any>((set, get) => ({
   wishlistProducts: [],
 
@@ -15,7 +13,7 @@ export const useWishlistStore = create<any>((set, get) => ({
     const exisitingProducts = get().wishlistProducts;
 
     const index = exisitingProducts.findIndex(
-      (v: any, i: number) => v?.id == product?.id,
+      (v: any, _: any) => v?.id == product?.id,
     );
     //return if already exists,
     //also show a toast or sonner
@@ -52,7 +50,7 @@ export const useWishlistStore = create<any>((set, get) => ({
   toggleWishlistProduct: (product: any) => {
     const exisitingProducts = get().wishlistProducts;
     const index = exisitingProducts.findIndex(
-      (v: any, i: number) => v?.id == product?.id,
+      (v: any, _: any) => v?.id == product?.id,
     );
     if (index >= 0) {
       //it exists , remove from it

@@ -1,4 +1,3 @@
-import axios from "axios";
 import API from "@/shared/api/axios";
 import ProductService from "../product/product.api";
 

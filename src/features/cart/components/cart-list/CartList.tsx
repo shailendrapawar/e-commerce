@@ -20,7 +20,7 @@ export default function CartList({
   products: any[] | null | undefined;
   isLoading: boolean;
 }) {
-  const { deleteUserCart, removeFromCart } = useGetCart(1);
+  const { removeFromCart } = useGetCart(1);
   const navigate = useNavigate();
 
   if (isLoading) {

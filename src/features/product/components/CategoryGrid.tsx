@@ -1,6 +1,5 @@
 // components/CategoryGrid.tsx
 import { motion } from "framer-motion";
-import type React from "react";
 import useGetAllCategories from "../hooks/useGetAllCategories";
 import { CategorySkeleton } from "./CategorySkeleton";
 
@@ -50,7 +49,7 @@ const fallbackData = [
 ];
 
 export default function CategoryGrid() {
-  const { data, isLoading, isError } = useGetAllCategories();
+  const { isLoading } = useGetAllCategories();
 
   // console.log(isLoading)
   return (
@@ -64,7 +63,7 @@ export default function CategoryGrid() {
         {/* Grid */}
         <div className=" grid grid-cols-2 gap-4 sm:grid-cols-3  lg:grid-cols-6">
           {isLoading
-            ? [...Array(6)].map((item, i) => (
+            ? [...Array(6)].map((_, i) => (
                 <CategorySkeleton key={i} index={i} />
               ))
             : fallbackData?.slice(0, 6)?.map((category: any, index: number) => (
