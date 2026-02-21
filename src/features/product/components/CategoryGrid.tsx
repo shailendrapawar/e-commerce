@@ -63,9 +63,7 @@ export default function CategoryGrid() {
         {/* Grid */}
         <div className=" grid grid-cols-2 gap-4 sm:grid-cols-3  lg:grid-cols-6">
           {isLoading
-            ? [...Array(6)].map((_, i) => (
-                <CategorySkeleton key={i} index={i} />
-              ))
+            ? [...Array(6)].map((_, i: number) => <CategorySkeleton key={i} />)
             : fallbackData?.slice(0, 6)?.map((category: any, index: number) => (
                 <motion.a
                   key={index}

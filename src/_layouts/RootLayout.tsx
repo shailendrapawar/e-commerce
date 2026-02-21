@@ -1,5 +1,4 @@
 import LandingPage from "@/app/pages/LandingPages";
-import useScrollToTop from "@/shared/hooks/useScrollToTop";
 
 const RootLayout = () => {
   return (
